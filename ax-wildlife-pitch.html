@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AX Wildlife | DJI Enterprise Drone Onboard AI Challenge 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --slate-900: #0f172a;
+    --slate-800: #1e293b;
+    --slate-700: #334155;
+    --slate-600: #475569;
+    --slate-500: #64748b;
+    --slate-400: #94a3b8;
+    --slate-300: #cbd5e1;
+    --slate-200: #e2e8f0;
+    --slate-100: #f1f5f9;
+    --blue-600: #2563eb;
+    --blue-500: #3b82f6;
+    --blue-400: #60a5fa;
+    --blue-300: #93c5fd;
+    --blue-200: #bfdbfe;
+    --blue-100: #dbeafe;
+    --emerald-600: #059669;
+    --emerald-500: #10b981;
+    --emerald-400: #34d399;
+    --emerald-300: #6ee7b7;
+    --amber-500: #f59e0b;
+    --amber-400: #fbbf24;
+    --violet-600: #7c3aed;
+    --violet-500: #8b5cf6;
+    --violet-400: #a78bfa;
+    --violet-300: #c4b5fd;
+    --red-400: #f87171;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--slate-800);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Syne', sans-serif;
+    line-height: 1.2;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--slate-900);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--slate-800);
+    box-shadow: 0 4px 24px rgba(0,0,0,.4);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 34px; height: 34px;
+    background: var(--blue-600);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-icon svg { width: 18px; height: 18px; color: white; }
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+  }
+  .logo-text span { color: var(--blue-400); }
+  .logo-text .sep { color: var(--slate-600); margin: 0 4px; }
+
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a {
+    color: var(--slate-300);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color .15s;
+  }
+  nav a:hover { color: white; }
+  .btn-nav {
+    background: var(--blue-600);
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    transition: background .15s !important;
+  }
+  .btn-nav:hover { background: var(--blue-500) !important; }
+
+  /* mobile menu */
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--slate-300);
+  }
+  .hamburger svg { width: 24px; height: 24px; }
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--slate-800);
+    background: var(--slate-900);
+  }
+  .mobile-nav a {
+    color: var(--slate-300);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .mobile-nav.open { display: flex; }
+
+  @media(max-width:768px){
+    nav { display: none; }
+    .hamburger { display: block; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--slate-900) 0%, var(--slate-800) 50%, var(--slate-900) 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(37,99,235,.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media(max-width:900px){
+    .hero-inner { grid-template-columns: 1fr; padding: 56px 24px; }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(37,99,235,.18);
+    border: 1px solid rgba(96,165,250,.3);
+    color: var(--blue-300);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .hero-badge svg { width: 12px; height: 12px; }
+
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: white;
+  }
+  .hero h1 .accent { color: var(--blue-400); }
+
+  .hero p {
+    color: var(--slate-300);
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 32px;
+  }
+  .hero p strong { color: white; }
+  .hero p .highlight { color: var(--amber-400); font-weight: 700; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-600);
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 13px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background .15s, transform .15s, box-shadow .15s;
+    box-shadow: 0 8px 24px rgba(37,99,235,.35);
+  }
+  .btn-primary:hover {
+    background: var(--blue-500);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(37,99,235,.45);
+  }
+  .btn-primary svg { width: 16px; height: 16px; transition: transform .15s; }
+  .btn-primary:hover svg { transform: translateX(2px); }
+
+  /* HUD Card */
+  .hud-card {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1a2744 0%, var(--slate-800) 100%);
+    border: 1px solid var(--slate-600);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .hud-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,42,.6) 0%, transparent 60%); }
+  .hud-tag {
+    position: absolute;
+    background: rgba(15,23,42,.85);
+    border: 1px solid var(--slate-600);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-family: 'DM Sans', monospace;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hud-tag.tl { top: 12px; left: 12px; color: var(--emerald-400); }
+  .hud-tag.tr { top: 12px; right: 12px; color: var(--blue-400); }
+  .hud-tag.bottom {
+    bottom: 12px; left: 12px; right: 12px;
+    justify-content: space-between;
+    color: var(--slate-300);
+  }
+  .hud-tag .pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--emerald-400);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(.85); }
+  }
+  .hud-tag .warn { color: var(--amber-400); font-weight: 700; }
+
+  .drone-svg { width: 160px; opacity: .35; position: relative; }
+
+  .bbox {
+    position: absolute;
+    border: 2px solid var(--amber-400);
+    border-radius: 3px;
+  }
+  .bbox-label {
+    position: absolute;
+    top: -18px; left: 0;
+    background: rgba(15,23,42,.85);
+    color: var(--amber-400);
+    font-size: 9px;
+    font-weight: 700;
+    font-family: monospace;
+    padding: 1px 4px;
+    white-space: nowrap;
+  }
+  .bbox1 { width: 52px; height: 38px; top: 34%; left: 22%; animation: blink 3s ease-in-out infinite; }
+  .bbox2 { width: 36px; height: 28px; top: 56%; right: 24%; animation: blink 3s ease-in-out infinite .8s; }
+  @keyframes blink {
+    0%,100% { border-color: var(--amber-400); }
+    50% { border-color: rgba(251,191,36,.4); }
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 80px 24px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 48px; }
+  .section-label {
+    display: inline-block;
+    color: var(--blue-600);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-size: clamp(26px, 3.5vw, 38px);
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 12px;
+  }
+  .section-sub {
+    color: var(--slate-500);
+    font-size: 15px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── BACKGROUND CARDS ── */
+  .bg-section { background: var(--bg); }
+  .cards-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  @media(max-width:900px){ .cards-grid { grid-template-columns: 1fr; } }
+
+  .pain-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    transition: box-shadow .2s;
+    border-left: 4px solid transparent;
+  }
+  .pain-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.08); }
+  .pain-card.amber { border-left-color: var(--amber-400); }
+  .pain-card.blue  { border-left-color: var(--blue-600); }
+  .pain-card.emerald { border-left-color: var(--emerald-500); }
+
+  .card-icon { margin-bottom: 16px; }
+  .card-icon svg { width: 28px; height: 28px; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .badge.amber { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+  .badge.blue  { background: var(--blue-100); color: #1e40af; border: 1px solid #bfdbfe; }
+  .badge.emerald { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+
+  .card-title { font-size: 17px; font-weight: 700; color: var(--slate-900); margin-bottom: 8px; }
+  .card-body  { font-size: 14px; color: var(--slate-500); line-height: 1.65; }
+
+  /* ── ARCHITECTURE ── */
+  .arch-section {
+    background: var(--slate-900);
+    position: relative;
+    overflow: hidden;
+  }
+  .arch-section .section-title { color: white; }
+  .arch-section .section-label { color: var(--blue-400); }
+  .arch-section .section-sub { color: var(--slate-400); }
+  .arch-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+
+  .arch-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    position: relative;
+  }
+  @media(max-width:900px){ .arch-flow { flex-direction: column; gap: 0; } }
+
+  .arch-block {
+    flex: 1;
+    background: var(--slate-800);
+    border: 1px solid var(--slate-700);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+  }
+  .arch-block-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .arch-block-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .arch-block-icon svg { width: 18px; height: 18px; color: white; }
+  .arch-block-layer {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+  .arch-block-name { font-size: 14px; font-weight: 700; color: white; }
+
+  .arch-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .arch-chip svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  .chip-blue { background: rgba(37,99,235,.12); border-color: rgba(37,99,235,.3); color: var(--blue-300); }
+  .chip-violet { background: rgba(124,58,237,.12); border-color: rgba(124,58,237,.3); color: var(--violet-300); }
+  .chip-emerald { background: rgba(5,150,105,.12); border-color: rgba(5,150,105,.3); color: var(--emerald-300); }
+  .chip-amber { background: rgba(245,158,11,.12); border-color: rgba(245,158,11,.3); color: var(--amber-400); }
+
+  .edge-note {
+    background: rgba(37,99,235,.1);
+    border: 1px solid rgba(37,99,235,.25);
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 16px;
+  }
+  .edge-note p:first-child { font-size: 12px; font-weight: 700; color: var(--blue-300); }
+  .edge-note p:last-child { font-size: 11px; color: var(--slate-400); margin-top: 2px; }
+
+  /* Arrow */
+  .arch-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    flex-shrink: 0;
+  }
+  @media(max-width:900px){
+    .arch-arrow { padding: 12px 0; flex-direction: row; height: 40px; }
+    .arch-arrow .vert-line { display: none; }
+    .arch-arrow .horiz-line { display: block !important; }
+  }
+  .vert-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .line-seg {
+    width: 2px; flex: 1; min-height: 40px;
+    background: linear-gradient(to bottom, var(--slate-600), var(--blue-500));
+  }
+  .line-seg.rev { background: linear-gradient(to bottom, var(--blue-500), var(--slate-600)); }
+  .arrow-icon svg { width: 20px; height: 20px; color: var(--blue-400); transform: rotate(90deg); }
+  .horiz-line {
+    display: none;
+    width: 100%;
+    align-items: center;
+    gap: 0;
+  }
+  .hline-seg { flex: 1; height: 2px; background: linear-gradient(to right, var(--slate-600), var(--blue-500)); }
+  .hline-seg.rev { background: linear-gradient(to right, var(--blue-500), var(--slate-600)); }
+  .harrow svg { width: 20px; height: 20px; color: var(--blue-400); }
+
+  .arch-callout {
+    text-align: center;
+    margin-top: 24px;
+  }
+  .arch-callout-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(37,99,235,.1);
+    border: 1px solid rgba(37,99,235,.25);
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: var(--blue-300);
+    font-size: 14px;
+  }
+  .arch-callout-inner svg { width: 16px; height: 16px; color: var(--blue-400); flex-shrink: 0; }
+  .arch-callout-inner strong { color: white; }
+
+  /* ── CORE FUNCTIONS ── */
+  .fn-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  @media(max-width:900px){ .fn-grid { grid-template-columns: 1fr; } }
+
+  .fn-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    transition: box-shadow .2s, transform .2s;
+    cursor: default;
+  }
+  .fn-card:hover {
+    box-shadow: 0 10px 32px rgba(0,0,0,.1);
+    transform: translateY(-2px);
+  }
+  .fn-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .fn-icon svg { width: 22px; height: 22px; }
+  .fn-icon.blue { background: var(--blue-100); color: var(--blue-600); }
+  .fn-icon.violet { background: #ede9fe; color: var(--violet-600); }
+  .fn-icon.emerald { background: #d1fae5; color: var(--emerald-600); }
+  .fn-title { font-size: 17px; font-weight: 700; color: var(--slate-900); margin-bottom: 8px; }
+  .fn-desc { font-size: 14px; color: var(--slate-500); line-height: 1.65; }
+
+  /* ── INNOVATION ── */
+  .innov-section {
+    background: linear-gradient(135deg, var(--blue-600) 0%, #1d4ed8 100%);
+    padding: 80px 24px;
+  }
+  .innov-section .section-title { color: white; }
+  .innov-section .section-label { color: var(--blue-200); }
+
+  .accordion { display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+
+  .acc-item {
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .acc-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: white;
+  }
+  .acc-trigger-left { display: flex; align-items: center; gap: 12px; }
+  .acc-trigger-icon {
+    width: 34px; height: 34px;
+    background: rgba(255,255,255,.15);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .acc-trigger-icon svg { width: 16px; height: 16px; color: var(--blue-200); }
+  .acc-trigger-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; }
+  .acc-chevron { width: 20px; height: 20px; color: var(--blue-200); transition: transform .25s; flex-shrink: 0; }
+  .acc-chevron.open { transform: rotate(180deg); }
+  .acc-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease, padding .3s ease;
+  }
+  .acc-body.open { max-height: 200px; }
+  .acc-body-inner {
+    padding: 0 24px 20px;
+    border-top: 1px solid rgba(255,255,255,.1);
+    padding-top: 16px;
+  }
+  .acc-body-inner p { color: var(--blue-100); font-size: 14px; line-height: 1.7; }
+
+  .check-pills {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+    max-width: 800px;
+    margin: 32px auto 0;
+  }
+  @media(max-width:700px){ .check-pills { grid-template-columns: 1fr; } }
+
+  .check-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .check-pill svg { width: 18px; height: 18px; color: var(--emerald-300); flex-shrink: 0; }
+
+  /* ── IMPACT ── */
+  .stats-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  @media(max-width:900px){ .stats-grid { grid-template-columns: 1fr; } }
+
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--slate-200);
+    border-radius: 16px;
+    padding: 40px 24px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    transition: box-shadow .2s;
+  }
+  .stat-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,.08); }
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 58px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .stat-value.blue { color: var(--blue-600); }
+  .stat-value.emerald { color: var(--emerald-600); }
+  .stat-value.violet { color: var(--violet-600); }
+  .stat-label { font-size: 16px; font-weight: 700; color: var(--slate-900); margin-bottom: 6px; }
+  .stat-sub { font-size: 13px; color: var(--slate-500); }
+
+  .cta-banner {
+    background: var(--slate-900);
+    border-radius: 24px;
+    padding: 48px;
+    margin-top: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+  }
+  @media(max-width:768px){ .cta-banner { flex-direction: column; text-align: center; padding: 32px 24px; } }
+  .cta-banner h3 { font-size: 24px; font-weight: 800; color: white; margin-bottom: 8px; }
+  .cta-banner p { color: var(--slate-400); font-size: 14px; max-width: 500px; }
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-600);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background .15s, box-shadow .15s;
+    box-shadow: 0 6px 20px rgba(37,99,235,.35);
+  }
+  .btn-cta:hover { background: var(--blue-500); box-shadow: 0 10px 28px rgba(37,99,235,.45); }
+  .btn-cta svg { width: 16px; height: 16px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--slate-900);
+    border-top: 1px solid var(--slate-800);
+  }
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-copy { font-size: 13px; color: var(--slate-500); text-align: center; flex: 1; }
+  .footer-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--slate-600);
+    font-family: monospace;
+    font-weight: 600;
+  }
+  .status-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--emerald-500);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  /* Entrance animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp .6s ease both; }
+  .fade-up-d1 { animation-delay: .1s; }
+  .fade-up-d2 { animation-delay: .2s; }
+  .fade-up-d3 { animation-delay: .3s; }
+  .fade-up-d4 { animation-delay: .4s; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+          <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
+        </svg>
+      </div>
+      <span class="logo-text">skyer Inc.<span class="sep">|</span><span>AX Wildlife</span></span>
+    </a>
+    <nav>
+      <a href="#background">Background</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#innovation">Innovation</a>
+      <a href="#impact">Impact</a>
+      <a href="#architecture" class="btn-nav">View Docs</a>
+    </nav>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <svg id="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#background" onclick="closeMenu()">Background</a>
+    <a href="#architecture" onclick="closeMenu()">Architecture</a>
+    <a href="#innovation" onclick="closeMenu()">Innovation</a>
+    <a href="#impact" onclick="closeMenu()">Impact</a>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <!-- Text -->
+    <div>
+      <div class="hero-badge fade-up">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        DJI Enterprise Drone Onboard AI Challenge 2026
+      </div>
+      <h1 class="fade-up fade-up-d1">
+        AX Wildlife: <span class="accent">Onboard AI-Driven</span> Autonomous Animal Detection Network
+      </h1>
+      <p class="fade-up fade-up-d2">
+        Digitizing the expertise of veteran hunters using
+        <strong>DJI Matrice 4 Series / Matrice 400</strong> and <strong>onboard edge AI</strong>
+        to solve the <span class="highlight">$100M agricultural damage crisis</span>.
+      </p>
+      <a href="#architecture" class="btn-primary fade-up fade-up-d3">
+        View Technical Documentation
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- HUD Mock -->
+    <div class="fade-up fade-up-d4">
+      <div class="hud-card">
+        <div class="hud-overlay"></div>
+
+        <div class="hud-tag tl">
+          <span class="pulse"></span>
+          THERMAL &middot; ACTIVE
+        </div>
+        <div class="hud-tag tr">M4D SERIES &middot; DOCK 3</div>
+
+        <!-- Drone SVG -->
+        <svg class="drone-svg" viewBox="0 0 200 100" fill="none">
+          <ellipse cx="100" cy="50" rx="22" ry="7" fill="#60a5fa"/>
+          <line x1="78" y1="50" x2="36" y2="38" stroke="#60a5fa" stroke-width="2"/>
+          <line x1="122" y1="50" x2="164" y2="38" stroke="#60a5fa" stroke-width="2"/>
+          <line x1="78" y1="50" x2="36" y2="62" stroke="#60a5fa" stroke-width="2"/>
+          <line x1="122" y1="50" x2="164" y2="62" stroke="#60a5fa" stroke-width="2"/>
+          <circle cx="36" cy="38" r="9" stroke="#60a5fa" stroke-width="2"/>
+          <circle cx="164" cy="38" r="9" stroke="#60a5fa" stroke-width="2"/>
+          <circle cx="36" cy="62" r="9" stroke="#60a5fa" stroke-width="2"/>
+          <circle cx="164" cy="62" r="9" stroke="#60a5fa" stroke-width="2"/>
+          <rect x="91" y="55" width="18" height="12" rx="3" fill="#60a5fa" opacity=".7"/>
+        </svg>
+        <p style="position:relative;color:var(--slate-400);font-size:11px;margin-top:10px;">
+          DJI Matrice 4D Series &middot; Forest Thermal Patrol
+        </p>
+
+        <!-- Bounding boxes -->
+        <div class="bbox bbox1">
+          <span class="bbox-label">BOAR 94%</span>
+        </div>
+        <div class="bbox bbox2">
+          <span class="bbox-label">DEER 88%</span>
+        </div>
+
+        <div class="hud-tag bottom">
+          <span>DJI Matrice 4D (Dock 3)</span>
+          <span class="warn">2 TARGETS DETECTED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BACKGROUND ── -->
+<section id="background" class="bg-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Background &amp; Significance</span>
+      <h2 class="section-title">Why This Problem Can't Wait</h2>
+      <p class="section-sub">Japan's wildlife damage ecosystem is at a structural breaking point, requiring a technological leap rather than incremental improvement.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="pain-card amber">
+        <div class="card-icon" style="color:var(--amber-500)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <span class="badge amber">Industry Pain Points</span>
+        <h3 class="card-title">Aging Workforce Crisis</h3>
+        <p class="card-body">The average Japanese hunter is 70 years old. Manual mountain patrols—often solo, at night—are physically unsustainable and increasingly dangerous for this critical workforce.</p>
+      </div>
+      <div class="pain-card blue">
+        <div class="card-icon" style="color:var(--blue-500)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+          </svg>
+        </div>
+        <span class="badge blue">Market Demand</span>
+        <h3 class="card-title">$700M Annual Spend, Minimal ROI</h3>
+        <p class="card-body">Over 80% of local governments allocate $700M annually for wildlife countermeasures. The majority is wasted on inefficient manual labor with no data feedback loop.</p>
+      </div>
+      <div class="pain-card emerald">
+        <div class="card-icon" style="color:var(--emerald-500)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+          </svg>
+        </div>
+        <span class="badge emerald">Necessity</span>
+        <h3 class="card-title">Experience → Data-Driven Shift</h3>
+        <p class="card-body">Urgent transition from oral tradition and instinct-based hunting to a systematic, sensor-augmented wildlife management ecosystem that preserves institutional knowledge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ARCHITECTURE ── -->
+<section id="architecture" class="arch-section">
+  <div class="arch-grid-bg"></div>
+  <div class="section-inner" style="position:relative;">
+    <div class="section-header">
+      <span class="section-label">System Design</span>
+      <h2 class="section-title">Edge-to-Cloud System Architecture</h2>
+      <p class="section-sub" style="color:var(--slate-400)">100% of detection runs natively on Manifold 3. No cloud dependency for real-time thermal inference.</p>
+    </div>
+
+    <div class="arch-flow">
+
+      <!-- Block 1: UAV -->
+      <div class="arch-block">
+        <div class="arch-block-header">
+          <div class="arch-block-icon" style="background:var(--blue-600)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+              <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
+              <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
+              <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
+              <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+            </svg>
+          </div>
+          <div>
+            <div class="arch-block-layer" style="color:var(--blue-400)">Layer 1</div>
+            <div class="arch-block-name">UAV / Edge</div>
+          </div>
+        </div>
+        <div class="arch-chip chip-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          DJI Matrice 4 / Matrice 4D Series
+        </div>
+        <div class="arch-chip chip-blue" style="background:rgba(37,99,235,.07);border-color:rgba(37,99,235,.2);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          DJI Matrice 400
+        </div>
+        <div class="arch-chip chip-violet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Thermal / RGB / LiDAR Payloads
+        </div>
+        <div class="arch-chip chip-emerald">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+          Onboard Edge AI Inference
+        </div>
+        <div class="edge-note">
+          <p>⚡ Challenge-compliant hardware</p>
+          <p>Matrice 4 / 4D / 400 · Dock 3 support</p>
+        </div>
+      </div>
+
+      <!-- Arrow 1 -->
+      <div class="arch-arrow">
+        <div class="vert-line">
+          <div class="line-seg"></div>
+          <div class="arrow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+          <div class="line-seg rev"></div>
+        </div>
+        <div class="horiz-line">
+          <div class="hline-seg"></div>
+          <div class="harrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+          <div class="hline-seg rev"></div>
+        </div>
+      </div>
+
+      <!-- Block 2: Connectivity -->
+      <div class="arch-block">
+        <div class="arch-block-header">
+          <div class="arch-block-icon" style="background:var(--violet-600)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
+            </svg>
+          </div>
+          <div>
+            <div class="arch-block-layer" style="color:var(--violet-400)">Layer 2</div>
+            <div class="arch-block-name">Connectivity</div>
+          </div>
+        </div>
+        <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:10px;padding:14px;margin-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:14px;height:14px;color:var(--amber-400)"><path d="M5 12.55a11 11 0 0114.08 0"/><path d="M1.42 9a16 16 0 0121.16 0"/><path d="M8.53 16.11a6 6 0 016.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            <span style="color:var(--amber-400);font-size:11px;font-weight:700;letter-spacing:.1em;">OFFLINE MODE</span>
+          </div>
+          <p style="color:var(--slate-300);font-size:12px;font-weight:600;">O3 Enterprise Link</p>
+          <p style="color:var(--slate-500);font-size:11px;">Deep forest / no-signal zones</p>
+        </div>
+        <div style="background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.3);border-radius:10px;padding:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:14px;height:14px;color:var(--blue-400)"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
+            <span style="color:var(--blue-400);font-size:11px;font-weight:700;letter-spacing:.1em;">ONLINE SYNC</span>
+          </div>
+          <p style="color:var(--slate-300);font-size:12px;font-weight:600;">4G / LTE Uplink</p>
+          <p style="color:var(--slate-500);font-size:11px;">Dashboard &amp; trap integration</p>
+        </div>
+      </div>
+
+      <!-- Arrow 2 -->
+      <div class="arch-arrow">
+        <div class="vert-line">
+          <div class="line-seg"></div>
+          <div class="arrow-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+          <div class="line-seg rev"></div>
+        </div>
+        <div class="horiz-line">
+          <div class="hline-seg"></div>
+          <div class="harrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </div>
+          <div class="hline-seg rev"></div>
+        </div>
+      </div>
+
+      <!-- Block 3: Ground/Cloud -->
+      <div class="arch-block">
+        <div class="arch-block-header">
+          <div class="arch-block-icon" style="background:var(--emerald-600)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <div>
+            <div class="arch-block-layer" style="color:var(--emerald-400)">Layer 3</div>
+            <div class="arch-block-name">Ground / Cloud</div>
+          </div>
+        </div>
+        <div class="arch-chip chip-emerald">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Smart Traps (IoT)
+        </div>
+        <div class="arch-chip chip-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          AX Dashboard
+        </div>
+        <div class="arch-chip chip-violet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          Hunter Mobile App
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-callout">
+      <div class="arch-callout-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+          <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
+          <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
+          <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
+          <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+        </svg>
+        <span><strong>Supported Hardware:</strong> DJI Matrice 4 Series · Matrice 4D Series (Dock 3) · Matrice 400 — all running onboard edge AI inference with no cloud dependency.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CORE FUNCTIONS ── -->
+<section>
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Core Functions</span>
+      <h2 class="section-title">What the System Does</h2>
+    </div>
+    <div class="fn-grid">
+      <div class="fn-card">
+        <div class="fn-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+            <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
+          </svg>
+        </div>
+        <h3 class="fn-title">Onboard Thermal Detection</h3>
+        <p class="fn-desc">Real-time identification of boars and deer under dense forest canopies using Zenmuse H30T thermal imagery processed entirely on Manifold 3—no cloud round-trip.</p>
+      </div>
+      <div class="fn-card">
+        <div class="fn-icon violet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <h3 class="fn-title">Route Optimization</h3>
+        <p class="fn-desc">AI pattern recognition maps wildlife movement trails from repeated detections, suggesting statistically optimal trap placement coordinates to ground teams.</p>
+      </div>
+      <div class="fn-card">
+        <div class="fn-icon emerald">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/>
+          </svg>
+        </div>
+        <h3 class="fn-title">Automated Alerting</h3>
+        <p class="fn-desc">Seamless integration with ground IoT traps. Hunters receive push notifications only when capture probability exceeds threshold—eliminating empty-trap checks entirely.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INNOVATION ── -->
+<section id="innovation" class="innov-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Innovation Points</span>
+      <h2 class="section-title">What Sets AX Wildlife Apart</h2>
+    </div>
+
+    <div class="accordion">
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(0)">
+          <div class="acc-trigger-left">
+            <div class="acc-trigger-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;color:var(--blue-200)">
+                <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+              </svg>
+            </div>
+            <span class="acc-trigger-title">Edge-First Architecture</span>
+          </div>
+          <svg class="acc-chevron" id="chevron-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="acc-body" id="body-0">
+          <div class="acc-body-inner">
+            <p>100% inference runs natively on Manifold 3 (100 TOPS). Viable for the off-grid reality of Japanese mountains with zero cellular dependency during patrol.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(1)">
+          <div class="acc-trigger-left">
+            <div class="acc-trigger-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;color:var(--blue-200)">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <span class="acc-trigger-title">Social Implementation Design</span>
+          </div>
+          <svg class="acc-chevron" id="chevron-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="acc-body" id="body-1">
+          <div class="acc-body-inner">
+            <p>System is designed to multiply hunter effectiveness—boosting "catch per hour"—rather than automating them out. Hunters remain essential, just empowered.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger" onclick="toggleAcc(2)">
+          <div class="acc-trigger-left">
+            <div class="acc-trigger-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:16px;height:16px;color:var(--blue-200)">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+              </svg>
+            </div>
+            <span class="acc-trigger-title">Hardware-Agnostic Software Layer</span>
+          </div>
+          <svg class="acc-chevron" id="chevron-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+        <div class="acc-body" id="body-2">
+          <div class="acc-body-inner">
+            <p>Core AI inference stack is optimized for DJI Enterprise hardware but exposes open APIs for integration with third-party ground IoT sensors and trap systems.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-pills">
+      <div class="check-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Offline-capable AI inference
+      </div>
+      <div class="check-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Veteran knowledge preservation
+      </div>
+      <div class="check-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Open IoT sensor integration
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── IMPACT ── -->
+<section id="impact">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-label">Application Cases &amp; Impact</span>
+      <h2 class="section-title">Implementation Effect</h2>
+      <p class="section-sub">Measured outcomes from pilot deployments with partner municipalities in Ibaraki and Niigata prefectures.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value blue">80%</div>
+        <h3 class="stat-label">Reduction in Manual Patrol Time</h3>
+        <p class="stat-sub">Drone covers terrain in 1/5 the human time</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value emerald">100%</div>
+        <h3 class="stat-label">Elimination of Blind Patrols</h3>
+        <p class="stat-sub">Hunters only visit confirmed capture events</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value violet">↓↓</div>
+        <h3 class="stat-label">Fuel &amp; Nighttime Risk</h3>
+        <p class="stat-sub">Drastic reduction in vehicle costs &amp; nocturnal hazards</p>
+      </div>
+    </div>
+
+    <div class="cta-banner">
+      <div>
+        <h3>Ready to Transform Wildlife Management?</h3>
+        <p>AX Wildlife is submission-ready for the DJI Enterprise Drone Onboard AI Challenge 2026. Compatible with Matrice 4 Series, Matrice 4D Series (Dock 3), and Matrice 400 — with a production-grade onboard inference pipeline.</p>
+      </div>
+      <a href="#architecture" class="btn-cta">
+        Technical Architecture
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="width:28px;height:28px;background:var(--blue-600);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;">
+          <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/>
+          <line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/>
+          <line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/>
+        </svg>
+      </div>
+      <span style="color:var(--slate-300);font-size:14px;font-family:'Syne',sans-serif;font-weight:700;">
+        skyer Inc. <span style="color:var(--slate-600);margin:0 4px;">|</span>
+        <span style="color:var(--blue-400);">AX Wildlife</span>
+      </span>
+    </div>
+    <p class="footer-copy">© 2026 skyer Inc. &middot; DJI Enterprise Drone Onboard AI Challenge Submission</p>
+    <div class="footer-status">
+      <span class="status-dot"></span>
+      SUBMISSION ACTIVE
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  function toggleMenu() {
+    const nav = document.getElementById('mobile-nav');
+    nav.classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobile-nav').classList.remove('open');
+  }
+
+  // Accordion
+  const accState = [false, false, false];
+  function toggleAcc(i) {
+    accState[i] = !accState[i];
+    const body = document.getElementById('body-' + i);
+    const chevron = document.getElementById('chevron-' + i);
+    if (accState[i]) {
+      body.classList.add('open');
+      chevron.classList.add('open');
+    } else {
+      body.classList.remove('open');
+      chevron.classList.remove('open');
+    }
+  }
+
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.pain-card, .fn-card, .stat-card, .arch-block').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = `opacity .5s ease ${i * 0.08}s, transform .5s ease ${i * 0.08}s, box-shadow .2s`;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
